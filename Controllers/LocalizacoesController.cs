@@ -19,7 +19,11 @@ public class LocalizacoesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Localizacao?>> CriarLocalizacao(
         Localizacao? localizacao)
-        => Ok((await _context.Localizacoes.AddAsync(localizacao)).Entity);
+    {
+        await _context.Localizacoes.AddAsync(localizacao);
+        await _context.SaveChangesAsync();
+        return Ok(localizacao);   
+    }
 
     [HttpGet]
     public async Task<ActionResult<ICollection<Localizacao?>>> ListarLocalizacoes()
@@ -45,6 +49,8 @@ public class LocalizacoesController : ControllerBase
             return NotFound();
 
         _context.Localizacoes.Remove(registro);
+
+        await _context.SaveChangesAsync();
         
         return NoContent();
     }
@@ -60,6 +66,7 @@ public class LocalizacoesController : ControllerBase
         registro.AtualizarLocalizacao(localizacaoApp);
 
         _context.Localizacoes.Update(registro);
+        await _context.SaveChangesAsync();
         
         return Ok(registro);
     }
