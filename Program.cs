@@ -30,5 +30,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+await app.MigrateDatabase<AppContext>();
 
 app.Run();
