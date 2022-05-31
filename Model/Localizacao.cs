@@ -19,6 +19,6 @@ public class Localizacao
 
     public Localizacao()
     {
-        
+        Id = Guid.NewGuid();
     }
 }

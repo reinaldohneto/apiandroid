@@ -1,16 +1,20 @@
+using AppAndroid;
 using Microsoft.EntityFrameworkCore;
 using AppContext = AppAndroid.AppContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var connection = DatabaseConnection.ConfigureDatabaseConnection(builder.Environment.EnvironmentName);
+
 builder.Services.AddDbContext<AppContext>(opt =>
-    opt.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+{
+    if (connection != null) opt.UseNpgsql(connection);
+});
 
 var app = builder.Build();
 
