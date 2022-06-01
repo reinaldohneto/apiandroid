@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AppContext>(opt =>
 {
     if (connection == null)
         connection = builder.Configuration.GetConnectionString("DATABASE_URL");
-    opt.UseNpgsql();
+    opt.UseNpgsql(connection);
 });
 
 var app = builder.Build();
