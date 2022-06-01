@@ -4,6 +4,7 @@ public class Localizacao
 {
     public Guid Id { get; set; }
     public string Titulo { get; set; }
+    public string Descricao { get; set; }
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     public string Base64 { get; set; }
@@ -15,6 +16,7 @@ public class Localizacao
         Latitude = localizacao.Latitude;
         Longitude = localizacao.Longitude;
         Base64 = localizacao.Base64;
+        Descricao = localizacao.Descricao;
     }
 
     public Localizacao()
