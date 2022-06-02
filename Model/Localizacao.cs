@@ -11,7 +11,6 @@ public class Localizacao
 
     public void AtualizarLocalizacao(Localizacao localizacao)
     {
-        Id = localizacao.Id;
         Titulo = localizacao.Titulo;
         Latitude = localizacao.Latitude;
         Longitude = localizacao.Longitude;
