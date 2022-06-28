@@ -1,4 +1,6 @@
 using AppAndroid;
+using AppAndroid.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AppContext = AppAndroid.AppContext;
 
@@ -16,7 +18,9 @@ builder.Services.AddDbContext<AppContext>(opt =>
     if (connection == null)
         connection = builder.Configuration.GetConnectionString("DATABASE_URL");
     opt.UseNpgsql(connection);
-});
+})
+    .AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppContext>();
 
 var app = builder.Build();
 

@@ -1,11 +1,12 @@
 ﻿using AppAndroid.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppAndroid;
 
-public class AppContext : DbContext
+public class AppContext : IdentityDbContext
 {
-    public DbSet<Localizacao?> Localizacoes { get; set; }
+    public DbSet<Localizacao> Localizacoes { get; set; }
     
     public AppContext(DbContextOptions<AppContext> options)
         : base(options)
@@ -19,6 +20,10 @@ public class AppContext : DbContext
         
         builder.Entity<Localizacao>()
             .HasKey(l => l.Id);
+
+        builder.Entity<Localizacao>()
+            .HasOne(u => u.Usuario)
+            .WithMany(l => l.Localizacoes);
     }
 
 }

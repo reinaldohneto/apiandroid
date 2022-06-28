@@ -1,4 +1,6 @@
-﻿namespace AppAndroid.Model;
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace AppAndroid.Model;
 
 public class Localizacao
 {
@@ -8,6 +10,10 @@ public class Localizacao
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     public string Base64 { get; set; }
+
+    public Guid UserId { get; set; }
+    
+    public virtual ApplicationUser Usuario { get; set; }
 
     public void AtualizarLocalizacao(Localizacao localizacao)
     {
