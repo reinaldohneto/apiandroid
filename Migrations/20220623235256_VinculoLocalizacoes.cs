@@ -9,7 +9,7 @@ namespace AppAndroid.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Localizacoes");
+            migrationBuilder.Sql($"DELETE FROM \"Localizacoes\"");
             
             migrationBuilder.AddColumn<Guid>(
                 name: "UserId",
