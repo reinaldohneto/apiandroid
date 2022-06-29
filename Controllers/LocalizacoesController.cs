@@ -32,12 +32,12 @@ public class LocalizacoesController : ControllerBase
             Latitude = localizacao.Latitude,
             Longitude = localizacao.Longitude,
             Titulo = localizacao.Titulo,
-            UserId = Guid.Parse(value)
+            UsuarioId = value
         };
 
         await _context.Localizacoes.AddAsync(localizacaoDomain);
         await _context.SaveChangesAsync();
-        return Ok(localizacao);   
+        return Ok(localizacaoDomain);   
     }
 
     [HttpGet]

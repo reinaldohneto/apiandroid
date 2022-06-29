@@ -11,7 +11,7 @@ public class Localizacao
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     public string Base64 { get; set; }
-    public Guid UserId { get; set; }
+    public string UsuarioId { get; set; }
     [JsonIgnore]
     public virtual ApplicationUser Usuario { get; }
 
@@ -22,11 +22,6 @@ public class Localizacao
         Longitude = localizacao.Longitude;
         Base64 = localizacao.Base64;
         Descricao = localizacao.Descricao;
-    }
-
-    public void AtribuirUsuarioId(Guid usuarioId)
-    {
-        UserId = usuarioId;
     }
 
     public Localizacao()

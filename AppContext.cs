@@ -23,7 +23,7 @@ public class AppContext : IdentityDbContext
 
         builder.Entity<Localizacao>()
             .HasOne(u => u.Usuario)
-            .WithMany(l => l.Localizacoes);
+            .WithMany(l => l.Localizacoes)
+            .HasForeignKey(t => t.UsuarioId);
     }
-
 }
