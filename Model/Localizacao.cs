@@ -12,9 +12,9 @@ public class Localizacao
     public decimal Longitude { get; set; }
     public string Base64 { get; set; }
     [JsonIgnore]
-    public Guid UserId { get; set; }
+    public Guid UserId { get; private set; }
     [JsonIgnore]
-    public virtual ApplicationUser Usuario { get; set; }
+    public virtual ApplicationUser Usuario { get; private set; }
 
     public void AtualizarLocalizacao(Localizacao localizacao)
     {
