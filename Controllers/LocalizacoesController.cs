@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AppAndroid.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,7 +24,7 @@ public class LocalizacoesController : ControllerBase
     public async Task<ActionResult<Localizacao?>> CriarLocalizacao(
         LocalizacaoInputModel? localizacao)
     {
-        var value = User.FindFirst(i => i.Type == "NameId")?.Value;
+        var value = User.FindFirst(i => i.Type == ClaimTypes.NameIdentifier)?.Value;
         var localizacaoDomain = new Localizacao
         {
             Base64 = localizacao.Base64,
