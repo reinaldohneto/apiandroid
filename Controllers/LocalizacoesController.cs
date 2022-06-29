@@ -1,4 +1,5 @@
 using AppAndroid.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +7,7 @@ namespace AppAndroid.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class LocalizacoesController : ControllerBase
 {
     private readonly AppContext _context;
