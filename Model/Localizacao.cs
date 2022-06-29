@@ -11,10 +11,9 @@ public class Localizacao
     public decimal Latitude { get; set; }
     public decimal Longitude { get; set; }
     public string Base64 { get; set; }
+    public Guid UserId { get; set; }
     [JsonIgnore]
-    public Guid UserId { get; private set; }
-    [JsonIgnore]
-    public virtual ApplicationUser Usuario { get; private set; }
+    public virtual ApplicationUser Usuario { get; }
 
     public void AtualizarLocalizacao(Localizacao localizacao)
     {

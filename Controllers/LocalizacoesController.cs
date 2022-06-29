@@ -21,13 +21,20 @@ public class LocalizacoesController : ControllerBase
 
     [HttpPost]
     public async Task<ActionResult<Localizacao?>> CriarLocalizacao(
-        Localizacao? localizacao)
+        LocalizacaoInputModel? localizacao)
     {
         var value = User.FindFirst(i => i.Type == "NameId")?.Value;
-        if (value != null)
-            if (localizacao != null)
-                localizacao.AtribuirUsuarioId(Guid.Parse(value));
-        await _context.Localizacoes.AddAsync(localizacao);
+        var localizacaoDomain = new Localizacao
+        {
+            Base64 = localizacao.Base64,
+            Descricao = localizacao.Descricao,
+            Latitude = localizacao.Latitude,
+            Longitude = localizacao.Longitude,
+            Titulo = localizacao.Titulo,
+            UserId = Guid.Parse(value)
+        };
+
+        await _context.Localizacoes.AddAsync(localizacaoDomain);
         await _context.SaveChangesAsync();
         return Ok(localizacao);   
     }
