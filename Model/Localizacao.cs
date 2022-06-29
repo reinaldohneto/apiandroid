@@ -25,6 +25,11 @@ public class Localizacao
         Descricao = localizacao.Descricao;
     }
 
+    public void AtribuirUsuarioId(Guid usuarioId)
+    {
+        UserId = usuarioId;
+    }
+
     public Localizacao()
     {
         Id = Guid.NewGuid();

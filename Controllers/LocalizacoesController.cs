@@ -26,7 +26,7 @@ public class LocalizacoesController : ControllerBase
         var value = User.FindFirst(i => i.Type == "NameId")?.Value;
         if (value != null)
             if (localizacao != null)
-                localizacao.UserId = Guid.Parse(value);
+                localizacao.AtribuirUsuarioId(Guid.Parse(value));
         await _context.Localizacoes.AddAsync(localizacao);
         await _context.SaveChangesAsync();
         return Ok(localizacao);   
