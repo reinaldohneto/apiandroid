@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Identity;
 
 namespace AppAndroid.Model;
 
@@ -12,7 +13,7 @@ public class Localizacao
     public string Base64 { get; set; }
 
     public Guid UserId { get; set; }
-    
+    [JsonIgnore]
     public virtual ApplicationUser Usuario { get; set; }
 
     public void AtualizarLocalizacao(Localizacao localizacao)

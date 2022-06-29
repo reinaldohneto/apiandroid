@@ -73,31 +73,26 @@ public class UsuarioController : ControllerBase
     
     private TokenViewModel GeraToken(ApplicationUser usuario)
     {
-        var claims = new[]
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes(Environment.GetEnvironmentVariable("TOKEN_CONFIGURATION_KEY") ?? string.Empty);
+
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-            new Claim(JwtRegisteredClaimNames.UniqueName, usuario.UserName)
+            Subject = new ClaimsIdentity(new Claim[]
+            {
+                new(ClaimTypes.NameIdentifier, usuario.Id)
+            }),
+            Expires = DateTime.UtcNow.AddDays(14),
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
         };
 
-        var jwtKey = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")!.Equals("Production")
-            ? Environment.GetEnvironmentVariable("TOKEN_CONFIGURATION_KEY")
-            : _configuration.GetValue<string>("JwtKey");
-
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey ?? throw new ArgumentNullException("Key")));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-        var expiration = DateTime.UtcNow.AddDays(14);
-
-        JwtSecurityToken token = new JwtSecurityToken(
-            issuer: Environment.GetEnvironmentVariable("TOKEN_ISSUER"),
-            audience: null,
-            claims: claims,
-            expires: expiration,
-            signingCredentials: creds);
-
+         var security = tokenHandler.CreateToken(tokenDescriptor);
+         var token = tokenHandler.WriteToken(security);
+         
         return new TokenViewModel
         {
-            Token = new JwtSecurityTokenHandler().WriteToken(token),
-            Duracao = expiration
+            Token = token,
+            Duracao = tokenDescriptor.Expires
         };
     }
 }

@@ -1,4 +1,5 @@
 using AppAndroid.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,10 @@ public class LocalizacoesController : ControllerBase
     public async Task<ActionResult<Localizacao?>> CriarLocalizacao(
         Localizacao? localizacao)
     {
+        var value = User.FindFirst(i => i.Type == "NameId")?.Value;
+        if (value != null)
+            if (localizacao != null)
+                localizacao.UserId = Guid.Parse(value);
         await _context.Localizacoes.AddAsync(localizacao);
         await _context.SaveChangesAsync();
         return Ok(localizacao);   
