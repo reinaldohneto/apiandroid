@@ -25,5 +25,13 @@ public class AppContext : IdentityDbContext
             .HasOne(u => u.Usuario)
             .WithMany(l => l.Localizacoes)
             .HasForeignKey(t => t.UsuarioId);
+
+        builder.Entity<Grupo>()
+            .HasKey(g => g.Id);
+
+        builder.Entity<Grupo>()
+            .HasMany(t => t.Usuarios)
+            .WithOne(t => t.Grupo)
+            .HasForeignKey(g => g.GrupoId);
     }
 }
