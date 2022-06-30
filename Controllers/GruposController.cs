@@ -54,4 +54,29 @@ public class GruposController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok();   
     }
+
+    [HttpGet]
+    public async Task<ActionResult<ICollection<GrupoRankingViewModel>>> ObterRanking()
+    {
+        var grupos = await _context.Grupos
+            .Include(g => g.Usuarios)!
+                .ThenInclude(u => u.Localizacoes)
+            .AsNoTracking()
+            .OrderBy(t => t.Usuarios!.Sum(t => t.Localizacoes.Count))
+            .ToListAsync();
+
+        var listRanking = new List<GrupoRankingViewModel>();
+        int i = 0;
+        grupos.ForEach(t =>
+        {
+            listRanking.Add(new GrupoRankingViewModel
+            {
+                Colocacao = i,
+                NomeGrupo = t.Nome,
+                Quantidade = t.Usuarios!.Sum(t => t.Localizacoes.Count)
+            });
+        });
+
+        return listRanking;
+    }
 }
