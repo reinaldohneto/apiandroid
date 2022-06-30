@@ -7,6 +7,7 @@ namespace AppAndroid;
 public class AppContext : IdentityDbContext
 {
     public DbSet<Localizacao> Localizacoes { get; set; }
+    public DbSet<Grupo> Grupos { get; set; }
     
     public AppContext(DbContextOptions<AppContext> options)
         : base(options)
