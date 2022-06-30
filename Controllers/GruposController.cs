@@ -37,14 +37,16 @@ public class GruposController : ControllerBase
         return Ok(grupoDomain);   
     }
     
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     public async Task<ActionResult<Grupo?>> AtualizaGrupo(
-        GrupoInputViewModel? grupo)
+        Guid id, GrupoInputViewModel? grupo)
     {
-        var grupoDomain = new Grupo
-        {
-            Nome = grupo.Nome
-        };
+        var grupoDomain = await _context.Grupos.FindAsync(id);
+
+        if (grupoDomain == null)
+            return NotFound();
+        
+        grupoDomain.Nome = grupo.Nome;
 
         _context.Grupos.Update(grupoDomain);
         await _context.SaveChangesAsync();
