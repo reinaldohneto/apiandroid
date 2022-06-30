@@ -62,7 +62,7 @@ public class GruposController : ControllerBase
             .Include(g => g.Usuarios)!
                 .ThenInclude(u => u.Localizacoes)
             .AsNoTracking()
-            .OrderBy(t => t.Usuarios!.Sum(t => t.Localizacoes.Count))
+            .OrderByDescending(t => t.Usuarios!.Sum(t => t.Localizacoes.Count))
             .ToListAsync();
 
         var listRanking = new List<GrupoRankingViewModel>();
