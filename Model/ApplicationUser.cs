@@ -6,9 +6,9 @@ namespace AppAndroid.Model;
 public class ApplicationUser : IdentityUser
 {
     [JsonIgnore]
-    public virtual ICollection<Localizacao> Localizacoes { get; set; }
+    public virtual ICollection<Localizacao>? Localizacoes { get; set; }
     [JsonIgnore]
-    public virtual Grupo Grupo { get; set; }
+    public virtual Grupo? Grupo { get; set; }
 
-    public Guid GrupoId { get; set; }
+    public Guid? GrupoId { get; set; }
 }
