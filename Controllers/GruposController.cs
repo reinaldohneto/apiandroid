@@ -37,6 +37,20 @@ public class GruposController : ControllerBase
         return Ok(grupoDomain);   
     }
     
+    [HttpPut]
+    public async Task<ActionResult<Grupo?>> AtualizaGrupo(
+        GrupoInputViewModel? grupo)
+    {
+        var grupoDomain = new Grupo
+        {
+            Nome = grupo.Nome
+        };
+
+        _context.Grupos.Update(grupoDomain);
+        await _context.SaveChangesAsync();
+        return Ok(grupoDomain);   
+    }
+    
     [HttpGet]
     public async Task<ActionResult<ICollection<Grupo?>>> ListarGrupos()
         => Ok(await _context.Grupos.ToListAsync());
