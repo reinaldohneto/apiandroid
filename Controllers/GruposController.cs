@@ -55,7 +55,7 @@ public class GruposController : ControllerBase
         return Ok();   
     }
 
-    [HttpGet]
+    [HttpGet("ranking")]
     public async Task<ActionResult<ICollection<GrupoRankingViewModel>>> ObterRanking()
     {
         var grupos = await _context.Grupos
