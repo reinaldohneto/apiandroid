@@ -58,7 +58,7 @@ public class GruposController : ControllerBase
         => Ok(await _context.Grupos.ToListAsync());
     
     [HttpPost("{id:guid}")]
-    public async Task<ActionResult<Grupo?>> InscreverGrupo(Guid id)
+    public async Task<ActionResult<Grupo?>> InscreverGrupo(Guid id, GrupoViewModel viewModel)
     {
         var value = User.FindFirst(i => i.Type == ClaimTypes.NameIdentifier)?.Value;
 
