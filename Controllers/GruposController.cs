@@ -66,7 +66,7 @@ public class GruposController : ControllerBase
             .ToListAsync();
 
         var listRanking = new List<GrupoRankingViewModel>();
-        int i = 0;
+        int i = 1;
         grupos.ForEach(t =>
         {
             listRanking.Add(new GrupoRankingViewModel
@@ -75,6 +75,7 @@ public class GruposController : ControllerBase
                 NomeGrupo = t.Nome,
                 Quantidade = t.Usuarios!.Sum(t => t.Localizacoes.Count)
             });
+            i += 1;
         });
 
         return listRanking;
