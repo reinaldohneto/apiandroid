@@ -68,7 +68,10 @@ public class GruposController : ControllerBase
         await _userManager.UpdateAsync(usuario);
         
         await _context.SaveChangesAsync();
-        return Ok();   
+        return Ok(new
+        {
+            Id = id
+        });   
     }
 
     [HttpGet("ranking")]
